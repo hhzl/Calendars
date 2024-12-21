@@ -355,16 +355,18 @@ Pentecost (also called Whit Sunday, Whitsunday or Whitsun) is a Christian holida
 
 Dates are given as Gregorian dates
 
+````Markdown
 Year    Western Eastern
------   ------- -------
-2025	    June 8
+------- ------- -------
+2025	June 8  June 8
 2026	May 24	May 31
-2027	May 16	June 20
-2028	    June 4
+2027	May 16 	June 20
+2028	June 4  June 4
 2029	May 20	May 27
 2030	June 9	June 16
-2031	    June 1
------   ------- -------
+2031	June 1  June 1
+------- ------- -------
+````
 
 Calculation of Pentecost Sunday
 
@@ -377,15 +379,7 @@ pentecostSunday := easterSunday2025 + sevenWeeks.
 
 
 # Script 7
-Test of column formatting
-````Smalltalk
-cellText := [:dayText | |t|  t := dayText. (12 - dayText size) timesRepeat: [t:= t,' ']. t ].
-test := cellText value: '20 Easter'  
- '20 Easter   ' .
-````Smalltalk
-
-
-
+Made columns wider and added dates of festivals.
 
 ````Smalltalk
 
