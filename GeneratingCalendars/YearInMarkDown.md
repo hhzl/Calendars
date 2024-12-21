@@ -5,6 +5,9 @@ The date/time classes used here are the ones which come with the Cuis release. N
 The script is developed in stages from script 1 to script 7. If you are only interested in the result go to script 7.
 Also the dictionary with the festivals does not contain many yet. It is easy to extend.
 
+Further extensions:
+Further extensions might use ideas from https://github.com/nequals30/MDcalendar.
+
 ## Useful expressions
 ````Smalltalk
 (Date year: 2025 month: 2 day: 1) weekday #Saturday
