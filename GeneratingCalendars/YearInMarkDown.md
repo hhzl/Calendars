@@ -1,7 +1,18 @@
-# Script to generate a calender for a year in Markdown
+# Script to generate a calender for a year in Markdown notation
 Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in Markdown notation.
 CSV notation is also possible.
 The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
+
+## Useful expressions
+````Smalltalk
+(Date year: 2025 month: 2 day: 1) weekday #Saturday
+(Date year: 2025 month: 1 day: 6) week weekNumber 2 
+
+easterSunday := Date easterDateFor: 2025
+sevenWeeks := Duration days: 49.
+pentecostSunday := easterSunday2025 + sevenWeeks.
+````
+
 
 ## Script 1
 Calendar for a month. Each day on one line.
@@ -298,8 +309,8 @@ pandoc --from=markdown --to=html --standalone year2025.md -o year2025.html
 ````
 
 
-## Festivals and holidays
-# Easter
+# Festivals and holidays
+## Easter
 https://en.wikipedia.org/wiki/List_of_dates_for_Easter
 ````Markdown
 -----           --------
@@ -317,3 +328,246 @@ https://en.wikipedia.org/wiki/List_of_dates_for_Easter
 ````
 
 
+Astronomical Society of South Australia / Resources
+List of Easter Sunday Dates 2000-2099
+https://www.assa.org.au/edm/#List20
+(includes a BASIC program how the easter dates were calculated)
+
+However Cuis already has a method for this.
+````Smalltalk
+easterSunday := Date easterDateFor: 2025
+````
+
+Good Friday
+````Smalltalk
+goodFriday:= (Date easterDateFor: 2025) previous previous.
+````Smalltalk
+
+
+## Pentecost
+https://en.wikipedia.org/wiki/Pentecost
+Pentecost (also called Whit Sunday, Whitsunday or Whitsun) is a Christian holiday which takes place on the 49th day (50th day when inclusive counting is used) after Easter Day.
+
+Dates are given as Gregorian dates
+
+Year    Western Eastern
+-----   ------- -------
+2025	    June 8
+2026	May 24	May 31
+2027	May 16	June 20
+2028	    June 4
+2029	May 20	May 27
+2030	June 9	June 16
+2031	    June 1
+-----   ------- -------
+
+Calculation of Pentecost Sunday
+
+````Smalltalk
+easterSunday := Date easterDateFor: 2025
+sevenWeeks := Duration days: 49.
+pentecostSunday := easterSunday2025 + sevenWeeks.
+````
+
+
+
+# Script 7
+Test of column formatting
+````Smalltalk
+cellText := [:dayText | |t|  t := dayText. (12 - dayText size) timesRepeat: [t:= t,' ']. t ].
+test := cellText value: '20 Easter'  
+ '20 Easter   ' .
+````Smalltalk
+
+
+
+
+````Smalltalk
+
+"Markdown"
+| year  |
+Transcript clear.
+
+year := 2025.
+
+
+
+festival := Dictionary new.
+
+(year to: year + 25) do: [:yyyy | |easterSunday goodFriday sevenWeeks pentecostSunday| 
+    easterSunday := Date easterDateFor: yyyy.
+    goodFriday := easterSunday previous previous.
+    sevenWeeks := Duration days: 49.
+    pentecostSunday := easterSunday + sevenWeeks.
+    festival at: easterSunday put: 'Easter'.
+    festival at: goodFriday put: 'Good Friday'.
+    festival at: pentecostSunday put: 'Pentcost'.
+    festival at: (Date year: yyyy month: 12 day: 25) put: 'Christmas'.
+].
+
+
+
+Transcript show: '# ', year  asString, String crlfString.
+
+1 to: 12 do: [:month | 
+firstDayInMonth := Date year:  year month: month day: 1.
+currentWeekNo := firstDayInMonth week weekNumber.
+
+Transcript show: '## ', firstDayInMonth month name asString, String crlfString.
+Transcript show: 'Mon            Tue            Wed            Thu            Fri            Sat            Sun', String crlfString.
+
+columnIndicator := '-------------- '.
+emptyDayCell := '               '. "fiveteen spaces"
+1 to: 7 do: [:no | Transcript show: columnIndicator].
+Transcript show: String crlfString.
+1 to: (firstDayInMonth weekdayIndex -1) do: [:no | Transcript show: emptyDayCell].
+
+days := Date daysInMonth: firstDayInMonth monthIndex   forYear: firstDayInMonth year yearNumber.
+1 to: days do: [:dayNumber | 
+     day :=  (Date year: year month: month day: dayNumber).
+ (day week weekNumber = currentWeekNo) not ifTrue: [Transcript show: String crlfString. 
+	currentWeekNo := day week weekNumber].
+       dStr := day dayOfMonth printString.
+        fv := festival at: day ifAbsent: [''].
+       (fv size > 0) ifTrue: [dStr := dStr,' ',fv].
+       (15 - dStr size) timesRepeat: [dStr := dStr, ' '].
+ 	Transcript show: dStr.
+].
+
+
+Transcript show: String crlfString.
+1 to: 7 do: [:no | Transcript show: columnIndicator].
+Transcript show: String crlfString, String crlfString]
+````
+
+
+## Result with festivals
+````Markdown
+Cuis7.3
+latest update: #6907
+Running at :C:\Users\hhzl\Documents\2024-12-10_Cuis7.3\CuisImage\Cuis7.3-6895.image
+
+# 2025
+## January
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                              1              2              3              4              5              
+6              7              8              9              10             11             12             
+13             14             15             16             17             18             19             
+20             21             22             23             24             25             26             
+27             28             29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## February
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                                                           1              2              
+3              4              5              6              7              8              9              
+10             11             12             13             14             15             16             
+17             18             19             20             21             22             23             
+24             25             26             27             28             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## March
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                                                           1              2              
+3              4              5              6              7              8              9              
+10             11             12             13             14             15             16             
+17             18             19             20             21             22             23             
+24             25             26             27             28             29             30             
+31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## April
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+               1              2              3              4              5              6              
+7              8              9              10             11             12             13             
+14             15             16             17             18 Good Friday 19             20 Easter      
+21             22             23             24             25             26             27             
+28             29             30             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## May
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                             1              2              3              4              
+5              6              7              8              9              10             11             
+12             13             14             15             16             17             18             
+19             20             21             22             23             24             25             
+26             27             28             29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## June
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                                                                          1              
+2              3              4              5              6              7              8 Pentcost     
+9              10             11             12             13             14             15             
+16             17             18             19             20             21             22             
+23             24             25             26             27             28             29             
+30             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## July
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+               1              2              3              4              5              6              
+7              8              9              10             11             12             13             
+14             15             16             17             18             19             20             
+21             22             23             24             25             26             27             
+28             29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## August
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                                            1              2              3              
+4              5              6              7              8              9              10             
+11             12             13             14             15             16             17             
+18             19             20             21             22             23             24             
+25             26             27             28             29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## September
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+1              2              3              4              5              6              7              
+8              9              10             11             12             13             14             
+15             16             17             18             19             20             21             
+22             23             24             25             26             27             28             
+29             30             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## October
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                              1              2              3              4              5              
+6              7              8              9              10             11             12             
+13             14             15             16             17             18             19             
+20             21             22             23             24             25             26             
+27             28             29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## November
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+                                                                           1              2              
+3              4              5              6              7              8              9              
+10             11             12             13             14             15             16             
+17             18             19             20             21             22             23             
+24             25             26             27             28             29             30             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+## December
+Mon            Tue            Wed            Thu            Fri            Sat            Sun
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+1              2              3              4              5              6              7              
+8              9              10             11             12             13             14             
+15             16             17             18             19             20             21             
+22             23             24             25 Christmas   26             27             28             
+29             30             31             
+-------------- -------------- -------------- -------------- -------------- -------------- -------------- 
+
+````
