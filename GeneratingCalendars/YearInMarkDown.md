@@ -1,10 +1,14 @@
 # Script to generate a calender for a year in Markdown notation
-Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in - Markdown notation.
+Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in - Markdown notation. If you are interested only in the result go to script 7.
 - The markdown text may be converted to various file formats with pandoc
 - CSV notation is also possible.(copy/paste into a text processing program)
 - The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
 - The Smalltalk coding style is aimed at being easy to understand for people with little or no Smalltalk knowledge in order that the script may be customised.
 
+## ToDo
+- Hook up the Calendar data fromo package 'Calendarium-Data' in order to make it possible to have the calendar in another  language than English.
+- Create a bilingual calendar type
+- Create a trilingual calendar type
 
 ## Conversion of the Markdown format with pandoc
 
