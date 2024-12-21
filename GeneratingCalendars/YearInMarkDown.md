@@ -1,12 +1,33 @@
 # Script to generate a calender for a year in Markdown notation
-Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in Markdown notation.
-CSV notation is also possible.
-The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
-The script is developed in stages from script 1 to script 7. If you are only interested in the result go to script 7.
-Also the dictionary with the festivals does not contain many yet. It is easy to extend.
+Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in - Markdown notation.
+- The markdown text may be converted to various file formats with pandoc
+- CSV notation is also possible.(copy/paste into a text processing program)
+- The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
+- The Smalltalk coding style is aimed at being easy to understand for people with little or no Smalltalk knowledge in order that the script may be customised.
 
-Further extensions:
-Further extensions might use ideas from https://github.com/nequals30/MDcalendar.
+
+## Conversion of the Markdown format with pandoc
+
+With the Pandoc universal document converter (https://www.pandoc.org/) other formats may be obtained:
+
+LibreOffice Writer (OpenDocument Text ODT)
+````
+pandoc --from=markdown --to=odt year2025.md -o year2025.odt
+````
+Microsoft Word DOCX
+````
+pandoc --from=markdown --to=docx year2025.md -o year2025.docx````````
+````
+
+Adobe InDesign (ICML)
+````
+pandoc --from=markdown --to=icml year2025.md -o year2025.icml
+````
+
+or HTML
+````
+pandoc --from=markdown --to=html --standalone year2025.md -o year2025.html
+````
 
 ## Useful expressions
 ````Smalltalk
@@ -440,7 +461,8 @@ Transcript show: String crlfString, String crlfString]
 ````
 
 
-## Result with festivals
+# Result of script 7 with festivals
+
 ````Markdown
 Cuis7.3
 latest update: #6907
