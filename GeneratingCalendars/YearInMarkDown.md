@@ -2,6 +2,8 @@
 Given here are scripts in increasing complexity resulting in a script which generates the calendar for a year in Markdown notation.
 CSV notation is also possible.
 The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
+The script is developed in stages from script 1 to script 7. If you are only interested in the result go to script 7.
+Also the dictionary with the festivals does not contain many yet. It is easy to extend.
 
 ## Useful expressions
 ````Smalltalk
@@ -341,7 +343,7 @@ easterSunday := Date easterDateFor: 2025
 Good Friday
 ````Smalltalk
 goodFriday:= (Date easterDateFor: 2025) previous previous.
-````Smalltalk
+````
 
 
 ## Pentecost
