@@ -612,3 +612,5 @@ Get ideas from:
 - https://github.com/Nielius/md-agenda
 - https://github.com/callum-oakley/markdown-calendar
 - https://github.com/nequals30/MDcalendar
+
+ The information about day, month and calendar names is from: https://github.com/fccm/ocaml-cal-svg 
