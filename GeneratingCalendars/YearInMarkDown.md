@@ -400,7 +400,7 @@ pentecostSunday := easterSunday2025 + sevenWeeks.
 
 
 # Script 7
-Made columns wider and added dates of festivals.
+Made columns wider and added dates of events/festivals.
 
 ````Smalltalk
 
@@ -411,7 +411,9 @@ Transcript clear.
 year := 2025.
 
 
+events := Dictionary new. "for the next 20 years"
 
+year to: year + 20 do: [:yyyy |
 "Events where the date changes each year"
     easterSunday := Date easterDateFor: yyyy.
     goodFriday := easterSunday previous previous.
@@ -426,6 +428,8 @@ year := 2025.
     
     "events at: (Date year: yyyy month: 5 day: 17) put: 'MH birthday'.
     events at: (Date year: yyyy month: 9 day: 24) put: 'NY birthday'."
+].
+
 
 
 
