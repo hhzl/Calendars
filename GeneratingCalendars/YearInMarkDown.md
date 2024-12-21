@@ -412,18 +412,20 @@ year := 2025.
 
 
 
-festival := Dictionary new.
-
-(year to: year + 25) do: [:yyyy | |easterSunday goodFriday sevenWeeks pentecostSunday| 
+"Events where the date changes each year"
     easterSunday := Date easterDateFor: yyyy.
     goodFriday := easterSunday previous previous.
     sevenWeeks := Duration days: 49.
     pentecostSunday := easterSunday + sevenWeeks.
-    festival at: easterSunday put: 'Easter'.
-    festival at: goodFriday put: 'Good Friday'.
-    festival at: pentecostSunday put: 'Pentcost'.
-    festival at: (Date year: yyyy month: 12 day: 25) put: 'Christmas'.
-].
+    events at: easterSunday put: 'Easter'.
+    events at: goodFriday put: 'Good Friday'.
+    events at: pentecostSunday put: 'Pentcost'.
+
+    "Recurring events each year with fixed date"
+    events at: (Date year: yyyy month: 12 day: 25) put: 'Christmas'.
+    
+    "events at: (Date year: yyyy month: 5 day: 17) put: 'MH birthday'.
+    events at: (Date year: yyyy month: 9 day: 24) put: 'NY birthday'."
 
 
 
@@ -437,7 +439,7 @@ Transcript show: '## ', firstDayInMonth month name asString, String crlfString.
 Transcript show: 'Mon            Tue            Wed            Thu            Fri            Sat            Sun', String crlfString.
 
 columnIndicator := '-------------- '.
-emptyDayCell := '               '. "fiveteen spaces"
+emptyDayCell := '               '. "fifteen spaces"
 1 to: 7 do: [:no | Transcript show: columnIndicator].
 Transcript show: String crlfString.
 1 to: (firstDayInMonth weekdayIndex -1) do: [:no | Transcript show: emptyDayCell].
@@ -448,7 +450,7 @@ days := Date daysInMonth: firstDayInMonth monthIndex   forYear: firstDayInMonth 
  (day week weekNumber = currentWeekNo) not ifTrue: [Transcript show: String crlfString. 
 	currentWeekNo := day week weekNumber].
        dStr := day dayOfMonth printString.
-        fv := festival at: day ifAbsent: [''].
+        fv := events at: day ifAbsent: [''].
        (fv size > 0) ifTrue: [dStr := dStr,' ',fv].
        (15 - dStr size) timesRepeat: [dStr := dStr, ' '].
  	Transcript show: dStr.
