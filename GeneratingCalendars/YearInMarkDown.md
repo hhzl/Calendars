@@ -4,6 +4,7 @@ CSV notation is also possible.
 The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
 
 ## Script 1
+Calendar for a month. Each day on one line.
 ````Smalltalk
 | year month days |
 Transcript clear.
@@ -17,12 +18,13 @@ days := Date daysInMonth: 1  forYear: year.
 ````
 
 ## Script 2
+Calendar for a month. Each day on one line and also showing the week number.
 ````Smalltalk
 | year month days |
 Transcript clear.
 year := 2025.
 month := 1.
-days := Date daysInMonth: 1  forYear: year.
+days := Date daysInMonth: month  forYear: year.
 1 to: days do: [:dayNumber | 
      day :=  (Date year: year month: month day: dayNumber).
     weekNo := day week weekNumber.
@@ -31,6 +33,7 @@ days := Date daysInMonth: 1  forYear: year.
 ````
 
 ## Script 3
+Calendar for a month grouped by weeks and also showing the week number.
 ````Smalltalk
 | year month days |
 Transcript clear.
@@ -50,6 +53,7 @@ weekNoA := weekNoB]
 
 
 ## Script 4
+Calendar for a month in CSV format to be copied into a word processing program and then 'Table convert to text'
 ````Smalltalk
 "Comma separated values, CSV"
 | year month days |
@@ -70,6 +74,7 @@ Transcript show: (day dayOfMonth).
 ````
 
 ## Script 5
+Calendar for a full year in markdown format
 ````Smalltalk
 "Markdown"
 | year  days |
@@ -102,6 +107,16 @@ Transcript show: String crlfString, String crlfString]
 ````
 
 ## Script 6
+Is the same as script 5 but the test
+````Smalltalk
+(day week weekNumber > currentWeekNo)
+````
+has been changed to
+````Smalltalk
+(day week weekNumber = currentWeekNo) not
+````
+to avoid a problem with a new week not starting after the 28th December 2025.
+
 ````Smalltalk
 "Markdown"
 | year  days |
@@ -269,8 +284,14 @@ pandoc --from=markdown --to=odt year2025.md -o year2025.odt
 ````
 or Microsoft Word
 ````
-pandoc --from=markdown --to=docx year2025.md -o year2025.docx
+pandoc --from=markdown --to=docx year2025.md -o year2025.docx````````
 ````
+
+or Adobe InDesign
+````
+pandoc --from=markdown --to=icml year2025.md -o year2025.icml
+````
+
 or HTML
 ````
 pandoc --from=markdown --to=html --standalone year2025.md -o year2025.html
