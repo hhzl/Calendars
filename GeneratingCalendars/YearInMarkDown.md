@@ -301,7 +301,7 @@ pandoc --from=markdown --to=html --standalone year2025.md -o year2025.html
 ## Festivals and holidays
 # Easter
 https://en.wikipedia.org/wiki/List_of_dates_for_Easter
-
+````Markdown
 -----           --------
 2025		April 20
 2026		April 5	
@@ -314,5 +314,6 @@ https://en.wikipedia.org/wiki/List_of_dates_for_Easter
 2033	        April 17
 2034	        April 9
 -----           --------
+````
 
 
