@@ -5,6 +5,9 @@ Given here are scripts in increasing complexity resulting in a script which gene
 - The date/time classes used here are the ones which come with the Cuis release. No Chalten classes are used (yet).
 - The Smalltalk coding style is aimed at being easy to understand for people with little or no Smalltalk knowledge in order that the script may be customised.
 
+## Note about the Transcript window
+The scripts currently write out the markdown code to the Transcript window. In order to copy the result you need to right-click in the Transcript window and ask for the content to be shown in another window from where you can copy the content.
+
 ## ToDo
 - Hook up the Calendar data fromo package 'Calendarium-Data' in order to make it possible to have the calendar in another  language than English.
 - Create a bilingual calendar type
@@ -602,3 +605,10 @@ Mon            Tue            Wed            Thu            Fri            Sat  
 -------------- -------------- -------------- -------------- -------------- -------------- -------------- 
 
 ````
+
+# Links
+Search for: 'script to generate a calendar in markdown'.
+Get ideas from: 
+- https://github.com/Nielius/md-agenda
+- https://github.com/callum-oakley/markdown-calendar
+- https://github.com/nequals30/MDcalendar
