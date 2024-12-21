@@ -16,7 +16,7 @@ pandoc --from=markdown --to=odt year2025.md -o year2025.odt
 ````
 Microsoft Word DOCX
 ````
-pandoc --from=markdown --to=docx year2025.md -o year2025.docx````````
+pandoc --from=markdown --to=docx year2025.md -o year2025.docx
 ````
 
 Adobe InDesign (ICML)
